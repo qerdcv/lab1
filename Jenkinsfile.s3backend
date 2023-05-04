@@ -5,7 +5,7 @@ pipeline {
         stage('Configure') {
             steps {
               sh '''
-                cd tf_s3_backend
+                cd ec2_instance
                 terraform init
                 terraform plan
                 terraform apply -auto-approve'''

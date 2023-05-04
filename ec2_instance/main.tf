@@ -76,3 +76,12 @@ resource "aws_security_group" "web_sg" {
 output "website_endpoint" {
   value = aws_instance.web.public_dns
 }
+
+terraform {
+  backend "s3" {
+    bucket         = "tf-backend-tishchenko-123321"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-locks"
+  }
+}
