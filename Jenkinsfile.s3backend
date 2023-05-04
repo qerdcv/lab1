@@ -1,0 +1,13 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Configure') {
+            steps {
+                cd tf_s3_backend
+                terraform init
+                terraform apply
+            }
+        }
+    }
+}
