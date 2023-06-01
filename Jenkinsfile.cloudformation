@@ -19,9 +19,19 @@ pipeline {
           --stack-name $stackName \
           --region $awsRegion \
           --template-file $templateFile \
-          --capabilities CAPABILITY_IAM
+          --capabilities CAPABILITY_IAM \
+          --parameter-overrides KeyName=jenkins DBPassword=somepassword DBUser=wordpress DBRootPassword=somepassword
           """
         }
+      }
+    }
+
+    stage('Destroy CloudFormation Stack') {
+      steps {
+        input 'Do you approve destroying stack?'
+        sh """
+        aws cloudformation delete-stack --stack-name jenkins-cloudformation-wordpress-stack
+        """
       }
     }
   }
