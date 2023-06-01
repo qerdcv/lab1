@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Configure') {
+            steps {
+              sh '''
+                cd s3_website
+                terraform init
+                terraform plan
+                terraform apply -auto-approve'''
+            }
+        }
+    }
+}

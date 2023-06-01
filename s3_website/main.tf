@@ -5,6 +5,13 @@ terraform {
       version = "~> 4.0"
     }
   }
+
+  backend "s3" {
+    bucket         = "tf-backend-tishchenko-123321"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-locks"
+  }
 }
 
 # Configure AWS provider and creds
@@ -67,13 +74,4 @@ resource "aws_s3_object" "indexfile" {
   key          = "index.html"
   source       = "./src/index.html"
   content_type = "text/html"
-}
-
-terraform {
-  backend "s3" {
-    bucket         = "tf-backend-tishchenko-123321"
-    key            = "terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "terraform-locks"
-  }
 }

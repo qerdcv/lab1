@@ -1,0 +1,27 @@
+pipeline {
+  agent any
+  stages {
+
+    stage('Retrieve CloudFormation Template') {
+      steps {
+        git 'https://github.com/qerdcv/lab1.git'
+      }
+    }
+
+    stage('Deploy CloudFormation Stack') {
+      steps {
+        script {
+          def awsRegion = 'us-east-1'
+          def stackName = 'jenkins-cloudformation-stack'
+          def templateFile = 'cloudformation.yaml'
+          sh """
+          aws cloudformation deploy \
+          --stack-name $stackName \
+          --template-file $templateFile \
+          --capabilities CAPABILITY_IAM
+          """
+        }
+      }
+    }
+  }
+}

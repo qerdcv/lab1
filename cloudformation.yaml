@@ -1,0 +1,21 @@
+Parameters:
+  BucketName:
+    Type: String
+    Default: "vtishchenko-cloudformation-bucket-with-jenkins"
+
+Resources:
+  S3Bucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Ref BucketName
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+    DeletionPolicy: Delete
+
+Outputs:
+  S3Bucket:
+    Description: Bucket Created using this template from jenkins!
+    Value: !Ref S3Bucket
