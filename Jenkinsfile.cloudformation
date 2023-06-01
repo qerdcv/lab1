@@ -12,11 +12,12 @@ pipeline {
       steps {
         script {
           def awsRegion = 'us-east-1'
-          def stackName = 'jenkins-cloudformation-stack'
-          def templateFile = 'cloudformation.yaml'
+          def stackName = 'jenkins-cloudformation-wordpress-stack'
+          def templateFile = 'cloudformation_wordpress.json'
           sh """
           aws cloudformation deploy \
           --stack-name $stackName \
+          --region $awsRegion \
           --template-file $templateFile \
           --capabilities CAPABILITY_IAM
           """
